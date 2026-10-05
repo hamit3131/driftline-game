@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b100e">
+  <title>Driftline — Sokakların ritmi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="game-canvas" aria-label="Drift oyunu sahnesi"></canvas>
+
+    <header class="topbar">
+      <button class="brand" id="home-button" aria-label="Ana menüye dön">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span class="brand-name">DRIFT<span>LINE</span><small>STREET RACING</small></span>
+      </button>
+      <nav class="main-nav" aria-label="Ana menü">
+        <button class="nav-button active" data-screen="home">Ana üs</button>
+        <button class="nav-button" data-screen="garage">Garaj</button>
+        <button class="nav-button" data-screen="modes">Rotalar</button>
+      </nav>
+      <div class="topbar-right">
+        <button class="sound-button" id="sound-button" aria-label="Müziği aç veya kapat"><span class="sound-icon">♫</span><span id="sound-label">MÜZİK AÇIK</span></button>
+        <div class="wallet"><span class="coin-icon">₵</span><span id="wallet-value">450</span></div>
+        <button class="avatar" id="avatar" aria-label="Sürücü profili">H</button>
+      </div>
+    </header>
+
+    <section class="screen home-screen" id="home-screen">
+      <div class="home-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> ASFALT SENİ ÇAĞIRIYOR</div>
+        <h1>ŞEHRİN<br><em>RİTMİNİ</em><br>YAKALA.</h1>
+        <p>Virajları yanla, jetonları kap, kendi efsaneni yola yaz.</p>
+        <button class="primary-button" id="play-button"><span>▶</span> SÜRÜŞE BAŞLA <b>↗</b></button>
+        <div class="keyboard-hint"><span class="keycap">W</span> GAZ <span class="keycap">A</span><span class="keycap">D</span> YÖN <span class="keycap">SPACE</span> DRİFT</div>
+      </div>
+      <div class="home-side">
+        <div class="season-tag"><span class="live-dot"></span> SEZON 01 <span class="tag-divider">/</span> GECE SÜRÜŞÜ</div>
+        <div class="car-caption"><span class="caption-line"></span><div><b id="home-car-name">KIRMIZI OK</b><small>AKTİF ARAÇ</small></div></div>
+        <div class="home-bottom-card">
+          <div class="record-icon">↗</div>
+          <div><small>KİŞİSEL REKOR</small><b id="home-best">0 <span>PUAN</span></b></div>
+          <div class="card-divider"></div>
+          <div><small>SONRAKİ ROTA</small><b id="home-track">ÇAMLIK GEÇİDİ</b></div>
+        </div>
+      </div>
+      <div class="home-footer"><span>01 — SINIRLARI ZORLA</span><span class="footer-lines"><i></i><i></i><i></i></span><span>YOL SENİN</span></div>
+    </section>
+
+    <section class="screen garage-screen hidden" id="garage-screen">
+      <div class="panel-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> KENDİ TARZINI KUR</div><h2>GARAJ <em>SEÇKİSİ</em></h2></div><button class="close-button" data-screen="home" aria-label="Kapat">×</button></div>
+      <div class="garage-layout">
+        <div class="garage-preview"><div class="preview-glow"></div><div class="preview-car" id="preview-car"><div class="preview-neon"></div><div class="preview-spoiler"><i></i><i></i></div><div class="preview-windshield"></div><div class="preview-stripe"></div><div class="preview-wheels"><i></i><i></i><i></i><i></i></div></div><div class="preview-info"><span class="eyebrow">SEÇİLİ ARAÇ</span><h3 id="garage-car-name">KIRMIZI OK</h3><p id="garage-car-desc">Hafif gövde, dengeli karakter. Virajlara hazır.</p></div></div>
+        <div class="garage-options"><div class="section-label">GARAJIN <span id="owned-count">1 / 4</span></div><div class="car-list" id="car-list"></div>
+          <div class="upgrade-head"><div class="section-label">PERFORMANS</div><span>JETONLA GELİŞTİR</span></div>
+          <div class="upgrade-list" id="upgrade-list"></div>
+          <div class="customize-panel">
+            <div class="upgrade-head"><div class="section-label">GÖRÜNÜM MODİFİKASYONU</div><span>JETONLA AÇ</span></div>
+            <div class="mod-group"><small>BOYA</small><div class="paint-swatches" id="paint-swatches"></div></div>
+            <div class="mod-group"><small>GÖVDE ŞERİDİ</small><div class="mod-options" id="stripe-options"></div></div>
+            <div class="mod-group"><small>JANT</small><div class="mod-options" id="wheel-options"></div></div>
+            <div class="mod-group"><small>SPOILER</small><div class="mod-options" id="spoiler-options"></div></div>
+            <div class="mod-group"><small>NEON ALTI</small><div class="mod-options" id="neon-options"></div></div>
+          </div>
+          <div class="accessory-panel"><div class="upgrade-head"><div class="section-label">GARAJ EKLENTİLERİ</div><span>YARIŞTA KULLAN</span></div><div class="accessory-list" id="accessory-list"></div></div>
+          <div class="garage-note"><span>✦</span> Geliştirmeler tüm rotalarda geçerlidir.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen modes-screen hidden" id="modes-screen">
+      <div class="panel-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> ROTANI BELİRLE</div><h2>YOLA <em>ÇIK</em></h2></div><button class="close-button" data-screen="home" aria-label="Kapat">×</button></div>
+      <div class="mode-grid" id="mode-grid"></div>
+      <div class="track-picker"><div><div class="section-label">BÖLGE SEÇ</div><p>Her rotanın virajı ve havası farklı.</p></div><div class="track-list" id="track-list"></div></div>
+      <div class="chapter-picker"><div class="chapter-heading"><div><div class="section-label">BÖLÜM SEÇ</div><p>Yeni bölümleri jetonla aç. Virajlar ve trafik her bölümde sertleşir.</p></div><span id="chapter-progress">01 / 20 AÇIK</span></div><div class="chapter-grid" id="chapter-grid"></div></div>
+      <div class="mode-bottom"><div class="mode-tip"><span>↗</span><div><b>İPUCU</b><small>Drift sırasında karşı yöne hafifçe dokunarak çizgini koru.</small></div></div><button class="primary-button" id="mode-play-button"><span>▶</span> BU ROTADA SÜR <b>↗</b></button></div>
+    </section>
+
+    <section class="screen settings-screen hidden" id="settings-screen">
+      <div class="panel-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> SÜRÜŞÜNÜ AYARLA</div><h2>OYUN <em>AYARLARI</em></h2></div><button class="close-button" data-screen="home" aria-label="Kapat">×</button></div>
+      <div class="settings-card"><div><b>Arka plan müziği</b><small>Oyunun ritmine eşlik eden özgün elektronik müzik</small></div><button id="settings-sound" class="toggle-switch on"><span></span></button></div>
+      <div class="settings-card"><div><b>Müzik seçimi</b><small>Her biri farklı ritim ve tonda üç pist müziği</small></div><select id="music-track-select"><option value="neon">NEON GECE</option><option value="sunset">GÜN BATIMI</option><option value="arctic">BUZ PİSTİ</option></select></div>
+      <div class="settings-card"><div><b>Vites kutusu</b><small>Manuelde Q / E veya ekrandaki vites koluyla değiştir</small></div><select id="transmission-select"><option value="auto">OTOMATİK</option><option value="manual">MANUEL</option></select></div>
+      <div class="settings-card controls-card"><div><b>Kontroller</b><small>PC ve dokunmatik cihazlarda oynayabilirsin</small></div><div class="control-map"><span><kbd>W</kbd> Gaz</span><span><kbd>S</kbd> Fren / geri</span><span><kbd>A</kbd><kbd>D</kbd> Yön</span><span><kbd>SPACE</kbd> Drift</span><span><kbd>SHIFT</kbd> Turbo</span><span><kbd>C</kbd> Kamera</span><span><kbd>Q</kbd><kbd>E</kbd> Vites</span></div></div>
+      <div class="settings-foot">Mobilde ekrandaki düğmelere basılı tut. <span>Ses, ilk dokunuştan sonra başlar.</span></div>
+    </section>
+
+    <section class="game-hud hidden" id="game-hud">
+      <div class="hud-top-left"><div class="run-tag"><span class="live-dot"></span><span id="hud-mode">SERBEST SÜRÜŞ</span></div><div class="track-name"><span id="hud-chapter">BÖLÜM 01 / 20</span><b id="hud-track">ÇAMLIK GEÇİDİ</b></div><div class="life-display hidden" id="life-display"><small>CAN</small><span id="lives-icons"></span></div><button class="camera-button" id="camera-button" aria-label="Kamera açısını değiştir"><span>◉</span> KAMERA <kbd>C</kbd></button></div>
+      <div class="hud-top-right"><div class="hud-stat"><small>PUAN</small><b id="score-value">000000</b></div><div class="hud-stat combo-stat"><small>KOMBO</small><b id="combo-value">x1.0</b></div><button class="pause-button" id="pause-button" aria-label="Oyunu duraklat">Ⅱ</button></div>
+      <div class="speed-card"><div class="speed-number"><b id="speed-value">0</b><small>KM/H</small></div><div class="speed-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="turbo-card"><div class="turbo-label"><span>⚡ TURBO</span><b><span id="turbo-value">100</span><small>%</small></b></div><div class="turbo-track"><i id="turbo-fill"></i></div><div class="turbo-help">SHIFT BASILI TUT</div></div>
+      <div class="run-coins"><span class="coin-icon">₵</span><b id="run-coins">0</b></div>
+      <div class="magnet-badge hidden" id="magnet-badge"><span>⊕</span> MIKNATIS</div>
+      <div class="gear-console"><div class="gear-auto-display" id="gear-auto-display"><small>OTOMATİK</small><b id="auto-gear-number">1</b><span>VİTES</span></div><div class="manual-gear-shifter hidden" id="manual-gear-shifter"><div class="gear-shifter-head"><small>MANUEL VİTES</small><b id="manual-gear-number">1</b></div><div class="gear-gate"><i class="gear-rail"></i><i class="gear-handle" id="gear-handle"><b></b></i><button data-gear="1" aria-label="1. vitese geç">1</button><button data-gear="2" aria-label="2. vitese geç">2</button><button data-gear="3" aria-label="3. vitese geç">3</button><button data-gear="4" aria-label="4. vitese geç">4</button><button data-gear="5" aria-label="5. vitese geç">5</button></div><small class="gear-hint">VİTES DEĞİŞTİR</small></div></div>
+      <div class="drift-pop hidden" id="drift-pop"><b>DRIFT!</b><span>+<i id="drift-pop-value">0</i></span></div>
+      <div class="pause-overlay hidden" id="pause-overlay"><div class="pause-box"><div class="eyebrow"><span class="eyebrow-line"></span> BİR NEFES AL</div><h2>SÜRÜŞ <em>DURAKLADI</em></h2><p>Devam etmek için hazır olduğunda yola dön.</p><button class="primary-button" id="resume-button"><span>▶</span> DEVAM ET <b>↗</b></button><button class="text-button" id="finish-button">SÜRÜŞÜ BİTİR</button></div></div>
+      <div class="run-result hidden" id="run-result"><div class="result-box"><div class="eyebrow"><span class="eyebrow-line"></span><span id="result-kicker">SÜRÜŞ TAMAMLANDI</span></div><h2>GÜZEL <em>İŞ.</em></h2><div class="result-score"><small>TOPLAM PUAN</small><b id="result-score">0</b></div><div class="result-stats"><div><small>TOPLANAN JETON</small><b id="result-coins">0</b></div><div><small>EN YÜKSEK KOMBO</small><b id="result-combo">x1.0</b></div></div><button class="primary-button" id="result-home-button"><span>⌂</span> ANA ÜSE DÖN <b>↗</b></button><button class="text-button" id="retry-button">TEKRAR SÜR</button></div></div>
+      <div class="touch-controls" id="touch-controls">
+        <div class="touch-steering"><button class="touch-button" data-control="left" aria-label="Sola dön">‹</button><button class="touch-button" data-control="right" aria-label="Sağa dön">›</button></div>
+        <div class="touch-driving"><button class="touch-button drift-touch" data-control="drift">DRİFT</button><button class="touch-button brake-touch" data-control="down">FREN</button><button class="touch-button gas-touch" data-control="up">GAZ</button><button class="touch-button turbo-touch" data-control="turbo">⚡</button></div>
+      </div>
+      <div class="hud-mobile-pause"><button id="mobile-pause-button">Ⅱ</button></div>
+    </section>
+
+    <button class="settings-gear" id="settings-button" aria-label="Ayarlar">⚙</button>
+    <div class="toast hidden" id="toast"></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
