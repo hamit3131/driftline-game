@@ -13,6 +13,11 @@ Türkçe arayüzlü, masaüstü ve mobil tarayıcılarda oynanabilen 2D drift oy
 - Dokunmatik mobil sürüş kontrolleri ve fare/klavye desteği
 - İlerleme tarayıcının yerel depolamasında saklanır
 
+## Canlı oyun
+
+- Oyun: https://hamit3131.github.io/driftline-game/
+- GitHub deposu: https://github.com/hamit3131/driftline-game
+
 ## Yerelde çalıştırma
 
 `index.html` dosyasını bir tarayıcıda aç. Alternatif olarak proje klasöründe basit bir yerel sunucu başlat:
@@ -25,15 +30,11 @@ Sonra `http://localhost:8000` adresini aç. Mobil cihazda oynamak için oyunu bi
 
 ## GitHub Pages ile yayınlama
 
-Bu proje derleme veya paket kurulumu istemez. `index.html`, `style.css`, `game.js` ve `.github/workflows/pages.yml` dosyalarını GitHub deposuna yüklemen yeterli.
+Bu proje derleme veya paket kurulumu istemez. `.github/workflows/pages.yml` dosyası `main` dalındaki her güncellemede `index.html`, `style.css` ve `game.js` dosyalarını otomatik yayımlar.
 
-1. GitHub'da yeni bir depo oluştur ve bu klasördeki dosyaları deponun kök dizinine yükle.
-2. Depoda **Settings → Pages** sayfasını aç.
-3. **Build and deployment → Source** alanında **GitHub Actions** seç.
-4. Dosyaları `main` dalına gönder. **Actions** sekmesindeki `Publish Driftline to GitHub Pages` iş akışı oyunu otomatik yayımlar.
-5. Yayın tamamlanınca **Settings → Pages** bölümünde gösterilen bağlantıyı aç. Aynı bağlantı PC ve mobil tarayıcılarda çalışır.
+Depoyu kendi hesabına kopyalarsan, **Settings → Pages → Build and deployment → Source** alanında **GitHub Actions** seç. Sonra `main` dalına gönderdiğin her güncelleme otomatik yayımlanır; durumu **Actions** sekmesinde görebilirsin.
 
-Sonraki her `main` güncellemesi siteyi yeniden yayımlar. İstersen iş akışını **Actions** sekmesinden elle de başlatabilirsin.
+Oyun PC ve mobil tarayıcılarda aynı bağlantıyla çalışır.
 
 ## Kontroller
 
